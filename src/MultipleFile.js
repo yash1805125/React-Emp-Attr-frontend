@@ -70,7 +70,7 @@ class MultipleFile extends Component {
       }
       // console.log(formData);
 
-      fetch("http://127.0.0.1:5000/excelpred", {
+      fetch("https://heroku-flask-emp-attr.herokuapp.com/excelpred", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
