@@ -1,0 +1,469 @@
+age:0
+business_travel:0
+monthly_income:0
+department:0
+distance_home:0
+education:0
+education_field:0
+environment_satisfaction:0
+gender:0
+job_involvement:0
+job_level:0
+job_role:0
+job_satisfaction:0
+marital_status:0
+num_comp_worked:0
+overtime:0
+percent_salary_hike:0
+performance_rating:0
+relationship_satisfaction:0
+stock_option_level:0
+total_working_years:0
+training_times_last_y:0
+work_life_balance:0
+years_at_company:0
+years_in_current_role:0
+years_since_last_promotion:0
+years_with_curr_manager:0
+
+
+
+
+import React, { Component } from "react";
+import "./App.css";
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
+import "bootstrap/dist/css/bootstrap.css";
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoading: false,
+      formData: {
+        age: 0,
+        business_travel: 0,
+        monthly_income: 0,
+        department: 0,
+        distance_home: 0,
+        education: 0,
+        education_field: 0,
+        environment_satisfaction: 0,
+        gender: 0,
+        job_involvement: 0,
+        job_level: 0,
+        job_role: 0,
+        job_satisfaction: 0,
+        marital_status: 0,
+        num_comp_worked: 0,
+        overtime: 0,
+        percent_salary_hike: 0,
+        performance_rating: 0,
+        relationship_satisfaction: 0,
+        stock_option_level: 0,
+        total_working_years: 0,
+        training_times_last_y: 0,
+        work_life_balance: 0,
+        years_at_company: 0,
+        years_in_current_role: 0,
+        years_since_last_promotion: 0,
+        years_with_curr_manager: 0,
+      },
+      result: "",
+    };
+  }
+
+  handleChange = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
+    var formData = this.state.formData;
+    formData[name] = value;
+    this.setState({
+      formData,
+    });
+  };
+
+  handlePredictClick = (event) => {
+    const formData = this.state.formData;
+    this.setState({ isLoading: true });
+    fetch("http://127.0.0.1:5000/prediction/", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        this.setState({
+          result: response.result,
+          isLoading: false,
+        });
+      });
+  };
+
+  handleCancelClick = (event) => {
+    this.setState({ result: "" });
+  };
+
+  render() {
+    const isLoading = this.state.isLoading;
+    const formData = this.state.formData;
+    const result = this.state.result;
+
+    return (
+      <Container>
+        <div>
+          <h1 className="title">ML React App</h1>
+        </div>
+        <div className="content">
+          <Form>
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>age</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 1"
+                  name="age"
+                  value={formData.age}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>business_travel</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 2"
+                  name="business_travel"
+                  value={formData.business_travel}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>monthly_income</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 1"
+                  name="monthly_income"
+                  value={formData.monthly_income}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>department</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 2"
+                  name="department"
+                  value={formData.department}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+            {/*  */}
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>distance_home</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 1"
+                  name="distance_home"
+                  value={formData.distance_home}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>education</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="education"
+                  value={formData.education}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>education_field</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="education_field"
+                  value={formData.education_field}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>environment_satisfaction</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 2"
+                  name="environment_satisfaction"
+                  value={formData.environment_satisfaction}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+            {/*  */}
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>gender</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 1"
+                  name="gender"
+                  value={formData.gender}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>job_involvement</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 2"
+                  name="job_involvement"
+                  value={formData.job_involvement}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>job_level</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 1"
+                  name="job_level"
+                  value={formData.job_level}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>job_role</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 2"
+                  name="job_role"
+                  value={formData.job_role}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+            {/*  */}
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>job_satisfaction</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 1"
+                  name="job_satisfaction"
+                  value={formData.job_satisfaction}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>marital_status</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="marital_status"
+                  value={formData.marital_status}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>num_comp_worked</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 1"
+                  name="num_comp_worked"
+                  value={formData.num_comp_worked}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>overtime</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 2"
+                  name="overtime"
+                  value={formData.overtime}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+            {/*  */}
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>percent_salary_hike</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 1"
+                  name="percent_salary_hike"
+                  value={formData.percent_salary_hike}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>performance_rating</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 2"
+                  name="performance_rating"
+                  value={formData.performance_rating}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>relationship_satisfaction</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 1"
+                  name="relationship_satisfaction"
+                  value={formData.relationship_satisfaction}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>stock_option_level</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 2"
+                  name="stock_option_level"
+                  value={formData.stock_option_level}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+            {/*  */}
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>total_working_years</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 1"
+                  name="total_working_years"
+                  value={formData.total_working_years}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>training_times_last_y</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 2"
+                  name="training_times_last_y"
+                  value={formData.training_times_last_y}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>work_life_balance</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 1"
+                  name="work_life_balance"
+                  value={formData.work_life_balance}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>years_at_company</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 2"
+                  name="years_at_company"
+                  value={formData.years_at_company}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+            {/*  */}
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>years_in_current_role</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 1"
+                  name="years_in_current_role"
+                  value={formData.years_in_current_role}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>years_since_last_promotion</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 2"
+                  name="years_since_last_promotion"
+                  value={formData.years_since_last_promotion}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Label>years_with_curr_manager</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Text Field 1"
+                  name="years_with_curr_manager"
+                  value={formData.years_with_curr_manager}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
+
+            <Row>
+              <Col>
+                <Button
+                  block
+                  variant="success"
+                  disabled={isLoading}
+                  onClick={!isLoading ? this.handlePredictClick : null}
+                >
+                  {isLoading ? "Making prediction" : "Predict"}
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  block
+                  variant="danger"
+                  disabled={isLoading}
+                  onClick={this.handleCancelClick}
+                >
+                  Reset prediction
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+          {result === "" ? null : (
+            <Row>
+              <Col className="result-container">
+                <h5 id="result">{result}</h5>
+              </Col>
+            </Row>
+          )}
+        </div>
+      </Container>
+    );
+  }
+}
+
+export default App;

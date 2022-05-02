@@ -1,0 +1,39 @@
+.content {
+  margin: auto;
+  margin-top: 20px;
+  width: 70%;
+  height: auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+label {
+  color: #333;
+}
+
+.p1 {
+  text-align: center;
+}
+
+.t1 {
+  text-align: center;
+  font-weight: 200;
+  font-size: 2em;
+  letter-spacing: 0.15rem;
+  color: black;
+}
+.result-container {
+  text-align: center;
+  font-weight: 600;
+  font-size: 4em;
+  letter-spacing: 0.15rem;
+  padding: 20px 0 0;
+}
+#result1 {
+  color: green;
+}
+
+#result2 {
+  color: red;
+}
