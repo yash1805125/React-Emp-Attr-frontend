@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "d1be0ad80e105e4c7789",
+    "revision": "2ffcf407890dd65b6818",
     "url": "/React-Emp-Attr-frontend/static/css/main.12614665.chunk.css"
   },
   {
-    "revision": "d1be0ad80e105e4c7789",
-    "url": "/React-Emp-Attr-frontend/static/js/main.37b2b707.chunk.js"
+    "revision": "2ffcf407890dd65b6818",
+    "url": "/React-Emp-Attr-frontend/static/js/main.a5462492.chunk.js"
   },
   {
     "revision": "59c4dd964bb764cdd925",
@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/React-Emp-Attr-frontend/static/js/2.76dda5c8.chunk.js"
   },
   {
-    "revision": "86e0e89c8485dafbe1fccfab3930b024",
+    "revision": "6372ebbdd914b78626441c73564cc156",
     "url": "/React-Emp-Attr-frontend/index.html"
   }
 ];
