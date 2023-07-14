@@ -15,44 +15,76 @@ class SingleFile extends Component {
       isLoading: false,
       name: "",
       formData: {
-        age: 0,
-        business_travel: 0,
-        monthly_income: 0,
-        department: 0,
-        distance_home: 0,
-        education: 0,
-        education_field: 0,
-        environment_satisfaction: 0,
-        gender: 0,
-        job_involvement: 0,
-        job_level: 0,
-        job_role: 0,
-        job_satisfaction: 0,
-        marital_status: 0,
-        num_comp_worked: 0,
-        overtime: 0,
-        percent_salary_hike: 0,
-        performance_rating: 0,
-        relationship_satisfaction: 0,
-        stock_option_level: 0,
-        total_working_years: 0,
-        training_times_last_y: 0,
-        work_life_balance: 0,
-        years_at_company: 0,
-        years_in_current_role: 0,
-        years_since_last_promotion: 0,
-        years_with_curr_manager: 0,
+        Age:"", 
+        BusinessTravel:"",
+        MonthlyIncome:"", 
+        MonthlyRate:"", 
+        Department:"",
+        DistanceFromHome:"",
+        Education:"", 
+        EducationField:"", 
+        EnvironmentSatisfaction:"", 
+        Gender:"", 
+        HourlyRate:"", 
+        DailyRate:"", 
+        JobInvolvement:"",
+        JobLevel:"",	
+        JobRole:"", 
+        JobSatisfaction:"", 
+        MaritalStatus:"", 
+        NumCompaniesWorked:"",
+        OverTime:"", 
+        StandardHours:"", 
+        PercentSalaryHike:"", 
+        PerformanceRating:"", 
+        RelationshipSatisfaction:"", 
+        StockOptionLevel:"",	
+        TotalWorkingYears:"", 
+        TrainingTimesLastYear:"", 
+        WorkLifeBalance:"", 
+        YearsAtCompany:"", 
+        YearsInCurrentRole:"", 
+        YearsSinceLastPromotion:"", 
+        YearsWithCurrManager:"",
+
+        // age: 0,
+        // business_travel: 0,
+        // monthly_income: 0,
+        // department: 0,
+        // distance_home: 0,
+        // education: 0,
+        // education_field: 0,
+        // environment_satisfaction: 0,
+        // gender: 0,
+        // job_involvement: 0,
+        // job_level: 0,
+        // job_role: 0,
+        // job_satisfaction: 0,
+        // marital_status: 0,
+        // num_comp_worked: 0,
+        // overtime: 0,
+        // percent_salary_hike: 0,
+        // performance_rating: 0,
+        // relationship_satisfaction: 0,
+        // stock_option_level: 0,
+        // total_working_years: 0,
+        // training_times_last_y: 0,
+        // work_life_balance: 0,
+        // years_at_company: 0,
+        // years_in_current_role: 0,
+        // years_since_last_promotion: 0,
+        // years_with_curr_manager: 0,
       },
       result: "",
     };
   }
 
   handleChange = (event) => {
-    const value = event.target.value;
+    const value = Number(event.target.value);
     const name = event.target.name;
     var formData = this.state.formData;
     formData[name] = value;
-    console.log(value, name, typeof formData, formData);
+    console.log(typeof value, formData);
     this.setState({
       formData,
     });
@@ -64,11 +96,12 @@ class SingleFile extends Component {
       name: value,
     });
   };
-
+                          
   handlePredictClick = (event) => {
     const formData = this.state.formData;
+    console.log(formData)
     this.setState({ isLoading: true });
-    fetch("https://heroku-flask-emp-attr.herokuapp.com/prediction", {
+    fetch("http://mindhunter.pythonanywhere.com/predict", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -78,11 +111,12 @@ class SingleFile extends Component {
     })
       .then((response) => response.json())
       .then((response) => {
+        console.log(response)
         this.setState({
           result: response.result,
           isLoading: false,
         });
-      });
+      }).catch(err => console.log(err));
   };
 
   handleCancelClick = (event) => {
@@ -100,7 +134,7 @@ class SingleFile extends Component {
         <div className="p1">
           <input
             className="t1"
-            placeholder="Enter your name"
+            placeholder="Enter Emp name"
             type="text"
             value={name}
             onChange={this.handleChange2}
@@ -113,9 +147,9 @@ class SingleFile extends Component {
               <Form.Label>age</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter your Age"
-                name="age"
-                value={formData.age}
+                placeholder="Enter Emp Age"
+                name="Age"
+                value={formData.Age}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -124,8 +158,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="Enter business_travel"
-                name="business_travel"
-                value={formData.business_travel}
+                name="BusinessTravel"
+                value={formData.BusinessTravel}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -137,8 +171,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="Enter monthly_income"
-                name="monthly_income"
-                value={formData.monthly_income}
+                name="MonthlyIncome"
+                value={formData.MonthlyIncome}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -147,8 +181,55 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="enter department"
-                name="department"
-                value={formData.department}
+                name="Department"
+                value={formData.Department}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+          </Form.Row>
+
+          <Form.Row>
+            <Form.Group as={Col}>
+              <Form.Label>MonthlyRate</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="monthly_rate"
+                name="MonthlyRate"
+                value={formData.MonthlyRate}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Group as={Col}>
+              <Form.Label>DailyRate</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="DailyRate"
+                name="DailyRate"
+                value={formData.DailyRate}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+          </Form.Row>
+
+          
+          <Form.Row>
+            <Form.Group as={Col}>
+              <Form.Label>HourlyRate</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="HourlyRate"
+                name="HourlyRate"
+                value={formData.HourlyRate}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Group as={Col}>
+              <Form.Label>StandardHours</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="StandardHours"
+                name="StandardHours"
+                value={formData.StandardHours}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -160,8 +241,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="Enter distance_home"
-                name="distance_home"
-                value={formData.distance_home}
+                name="DistanceFromHome"
+                value={formData.DistanceFromHome}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -169,9 +250,9 @@ class SingleFile extends Component {
               <Form.Label>education</Form.Label>
               <Form.Control
                 type="text"
-                name="education"
+                name="Education"
                 placeholder="education"
-                value={formData.education}
+                value={formData.Education}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -182,9 +263,9 @@ class SingleFile extends Component {
               <Form.Label>education_field</Form.Label>
               <Form.Control
                 type="text"
-                name="education_field"
+                name="EducationField"
                 placeholder="education_field"
-                value={formData.education_field}
+                value={formData.EducationField}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -193,8 +274,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="environment_satisfaction"
-                name="environment_satisfaction"
-                value={formData.environment_satisfaction}
+                name="EnvironmentSatisfaction"
+                value={formData.EnvironmentSatisfaction}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -206,8 +287,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="gender"
-                name="gender"
-                value={formData.gender}
+                name="Gender"
+                value={formData.Gender}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -216,8 +297,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="job_involvement"
-                name="job_involvement"
-                value={formData.job_involvement}
+                name="JobInvolvement"
+                value={formData.JobInvolvement}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -229,8 +310,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="job_level"
-                name="job_level"
-                value={formData.job_level}
+                name="JobLevel"
+                value={formData.JobLevel}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -239,8 +320,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="job_role"
-                name="job_role"
-                value={formData.job_role}
+                name="JobRole"
+                value={formData.JobRole}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -252,8 +333,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="job_satisfaction"
-                name="job_satisfaction"
-                value={formData.job_satisfaction}
+                name="JobSatisfaction"
+                value={formData.JobSatisfaction}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -262,8 +343,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="Enter marital status"
-                name="marital_status"
-                value={formData.marital_status}
+                name="MaritalStatus"
+                value={formData.MaritalStatus}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -275,8 +356,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="companies_worked"
-                name="num_comp_worked"
-                value={formData.num_comp_worked}
+                name="NumCompaniesWorked"
+                value={formData.NumCompaniesWorked}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -285,8 +366,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="overtime"
-                name="overtime"
-                value={formData.overtime}
+                name="OverTime"
+                value={formData.OverTime}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -298,8 +379,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="salary_hike"
-                name="percent_salary_hike"
-                value={formData.percent_salary_hike}
+                name="PercentSalaryHike"
+                value={formData.PercentSalaryHike}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -308,8 +389,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="performance_rating"
-                name="performance_rating"
-                value={formData.performance_rating}
+                name="PerformanceRating"
+                value={formData.PerformanceRating}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -321,8 +402,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="relationship_satisfaction"
-                name="relationship_satisfaction"
-                value={formData.relationship_satisfaction}
+                name="RelationshipSatisfaction"
+                value={formData.RelationshipSatisfaction}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -331,8 +412,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="stock_option_level"
-                name="stock_option_level"
-                value={formData.stock_option_level}
+                name="StockOptionLevel"
+                value={formData.StockOptionLevel}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -344,8 +425,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="total_working_years"
-                name="total_working_years"
-                value={formData.total_working_years}
+                name="TotalWorkingYears"
+                value={formData.TotalWorkingYears}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -354,8 +435,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="training_times_last_year"
-                name="training_times_last_y"
-                value={formData.training_times_last_y}
+                name="TrainingTimesLastYear"
+                value={formData.TrainingTimesLastYear}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -366,8 +447,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="work_life_balance"
-                name="work_life_balance"
-                value={formData.work_life_balance}
+                name="WorkLifeBalance"
+                value={formData.WorkLifeBalance}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -376,8 +457,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="years_at_company"
-                name="years_at_company"
-                value={formData.years_at_company}
+                name="YearsAtCompany"
+                value={formData.YearsAtCompany}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -389,8 +470,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="years_in_current_role"
-                name="years_in_current_role"
-                value={formData.years_in_current_role}
+                name="YearsInCurrentRole"
+                value={formData.YearsInCurrentRole}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -399,8 +480,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="years_since_last_promotion"
-                name="years_since_last_promotion"
-                value={formData.years_since_last_promotion}
+                name="YearsSinceLastPromotion"
+                value={formData.YearsSinceLastPromotion}
                 onChange={this.handleChange}
               />
             </Form.Group>
@@ -411,8 +492,8 @@ class SingleFile extends Component {
               <Form.Control
                 type="text"
                 placeholder="years_with_curr_manager"
-                name="years_with_curr_manager"
-                value={formData.years_with_curr_manager}
+                name="YearsWithCurrManager"
+                value={formData.YearsWithCurrManager}
                 onChange={this.handleChange}
               />
             </Form.Group>
