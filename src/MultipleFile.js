@@ -50,19 +50,23 @@ class MultipleFile extends Component {
       res: "",
       excelData: [],
       theInputKey: "",
-      load: false,
+      // load: false,
+      isLoading:false,
     };
   }
-  load = () => {
-    if (this.state.res.length === this.state.rows.length - 1) {
-      this.setState({ load: true });
-    }
-  };
+  // load = () => {
+  //   if (this.state.res.length === this.state.rows.length - 1) {
+  //     this.setState({ load: true });
+  //   }
+  // };
   handleExcel = (event) => {
     event.preventDefault();
+    if (this.state.isLoading) {
+      return alert('Prediction in queue'); // Prevent execution if the button is already disabled (loading)
+    }
     const data = this.state.rows;
     // console.log(data);
-    this.setState({ res: "" });
+    
     const formData = this.state.formData;
     
     if(data === "") return alert("Please Upload File")
@@ -76,6 +80,8 @@ class MultipleFile extends Component {
     //       formData[k] = data[i][data[0].indexOf(k)];
     //     }
     //   }
+
+    this.setState({ res: "",isLoading:true });
 
     for(let i=1;i<data.length;i++){
       
@@ -102,14 +108,20 @@ class MultipleFile extends Component {
             }));
           }).catch(err => console.log(err));
     }
-    
-    this.setState({load:true})
+    // if(this.state.res.length !== 0){
+    // this.setState({load:true,isLoading:false})
+    // }
     // this.load();
   };
+  // componentDidUpdate(){
+  //   console.log(this.state.res.length, this.state.rows.length-1)
+  //   if(this.state.load===true) this.setState({isLoading:false})
+  // }
 
   fileHandler = (event) => {
+    this.setState({rows:"",cols:"",res:""})
     let fileObj = event.target.files[0];
-    // console.log(event.target.files);
+    console.log(event.target.files);
 
     if (fileObj) {
       ExcelRenderer(fileObj, (err, resp) => {
@@ -159,6 +171,18 @@ class MultipleFile extends Component {
     }
   };
 
+  // sampleExcel() {
+  //   const fileType =
+  //       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+  //     const fileExtension = ".xlsx";
+
+  //     const ws = XLSX.utils.json_to_sheet(this.state.excelData);
+  //     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+  //     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+  //     const data = new Blob([excelBuffer], { type: fileType });
+  //     FileSaver.saveAs(data, "Employees" + fileExtension);
+  // }
+
   functionThatResetsTheFileInput() {
     let randomString = Math.random().toString(36);
 
@@ -185,7 +209,7 @@ class MultipleFile extends Component {
                 <h4>Please upload excel file</h4>
               )}
 
-              <div>
+              <div className="files">
                 <input
                   type="file"
                   onChange={this.fileHandler.bind(this)}
@@ -194,6 +218,7 @@ class MultipleFile extends Component {
                   key={this.state.theInputKey || ""}
                 />
 
+                {/* <Button style={{margin:"7px",padding:"5px"}} onClick={this.sampleExcel}>Sample ExcelData</Button> */}
               </div>
             </header>
           </div>
@@ -201,26 +226,26 @@ class MultipleFile extends Component {
 
           <div>
 
-            {(this.state.load && (this.state.rows.length-1)===this.state.res.length) === true ? (
+            {( (this.state.rows.length-1)===this.state.res.length) === true ? (
               <h4>Prediction Complete</h4>
-            ) : (
-              <h4>Press Predict Button</h4>
+            ) : (((this.state.res.length<this.state.rows.length-1) && (this.state.res.length!==0)) ? (<h4>Predicting please wait...</h4>) :
+              (<h4>Press Predict Button</h4>)
             )}
-            <Button block variant="success" onClick={this.handleExcel}>
+            <Button block variant="success" onClick={this.handleExcel} disabled={this.state.isLoading}>
               Predict
             </Button>
               
-            <button
-              className="mul"
-              // variant="success"
-              onClick={this.functionThatResetsTheFileInput}
-            >
-              <b>Reset</b>
-            </button>
-
-          </div>
-          <div>
+            <div className="prac">
             <Button onClick={this.toExcel}>Download Excel</Button>
+              <button
+                className="mul"
+                // variant="success"
+                onClick={this.functionThatResetsTheFileInput}
+              >
+                <b>Reset</b>
+              </button>  
+              
+            </div> 
           </div>
         </div>
         {/* </Form> */}

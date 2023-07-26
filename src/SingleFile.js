@@ -99,7 +99,13 @@ class SingleFile extends Component {
                           
   handlePredictClick = (event) => {
     const formData = this.state.formData;
-    console.log(formData)
+    // console.log(formData)
+    let flag=0;
+    Object.values(formData).forEach(val => {
+        if(val.length===0) flag=1;
+    });
+    if(flag===1) return alert('Please provide all data');
+
     this.setState({ isLoading: true });
     fetch("http://mindhunter.pythonanywhere.com/predict", {
       headers: {
@@ -119,6 +125,20 @@ class SingleFile extends Component {
       }).catch(err => console.log(err));
   };
 
+  handleOptions = (e) =>{
+    const value = Number(e.target.value[0]);
+    if(isNaN(value)){ 
+      console.log(e.target.value[0]);
+      return;}
+    const name = e.target.name;
+    var formData = this.state.formData;
+    formData[name] = value;
+    console.log(typeof value, formData);
+    this.setState({
+      formData,
+    });
+  }
+
   handleCancelClick = (event) => {
     this.setState({ result: "" });
   };
@@ -134,7 +154,7 @@ class SingleFile extends Component {
         <div className="p1">
           <input
             className="t1"
-            placeholder="Enter Emp name"
+            placeholder="Enter Emp Name"
             type="text"
             value={name}
             onChange={this.handleChange2}
@@ -144,7 +164,7 @@ class SingleFile extends Component {
           {/* <Form> */}
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>age</Form.Label>
+              <Form.Label>Age</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Emp Age"
@@ -154,20 +174,31 @@ class SingleFile extends Component {
               />
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>business_travel</Form.Label>
-              <Form.Control
+              <Form.Label>Business_travel</Form.Label>
+              {/* <Form.Control
                 type="text"
                 placeholder="Enter business_travel"
                 name="BusinessTravel"
                 value={formData.BusinessTravel}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="BusinessTravel"
+              //  value={formData.BusinessTravel}
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>0 - Travel_Rarely </option>
+                <option>1 - Travel_Frequently</option>
+                <option>2 - Non-Travel</option>
+              </select>
             </Form.Group>
           </Form.Row>
 
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>monthly_income</Form.Label>
+              <Form.Label>Monthly_Income</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter monthly_income"
@@ -177,14 +208,25 @@ class SingleFile extends Component {
               />
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>department</Form.Label>
-              <Form.Control
+              <Form.Label>Department</Form.Label>
+              {/* <Form.Control
                 type="text"
                 placeholder="enter department"
                 name="Department"
                 value={formData.Department}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="Department"
+              //  value={formData.Department}
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>0 - Sales</option>
+                <option>1 - Research & Development</option>
+                <option>2 - Human Resources</option>
+              </select>
             </Form.Group>
           </Form.Row>
 
@@ -193,7 +235,7 @@ class SingleFile extends Component {
               <Form.Label>MonthlyRate</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="monthly_rate"
+                placeholder=" Enter monthly_rate(i.e CTC + perks)"
                 name="MonthlyRate"
                 value={formData.MonthlyRate}
                 onChange={this.handleChange}
@@ -203,7 +245,7 @@ class SingleFile extends Component {
               <Form.Label>DailyRate</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="DailyRate"
+                placeholder="Enter daily_income of Employee"
                 name="DailyRate"
                 value={formData.DailyRate}
                 onChange={this.handleChange}
@@ -217,7 +259,7 @@ class SingleFile extends Component {
               <Form.Label>HourlyRate</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="HourlyRate"
+                placeholder="Enter hourly_income of Employee"
                 name="HourlyRate"
                 value={formData.HourlyRate}
                 onChange={this.handleChange}
@@ -227,7 +269,7 @@ class SingleFile extends Component {
               <Form.Label>StandardHours</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="StandardHours"
+                placeholder="Enter standard working hours"
                 name="StandardHours"
                 value={formData.StandardHours}
                 onChange={this.handleChange}
@@ -237,204 +279,351 @@ class SingleFile extends Component {
 
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>distance_home</Form.Label>
+              <Form.Label>Distance_from_home</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter distance_home"
+                placeholder="Enter Employee's distance_from_home"
                 name="DistanceFromHome"
                 value={formData.DistanceFromHome}
                 onChange={this.handleChange}
               />
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>education</Form.Label>
-              <Form.Control
+              <Form.Label>Education</Form.Label>
+              {/* <Form.Control
                 type="text"
                 name="Education"
                 placeholder="education"
                 value={formData.Education}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="Education"
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>1 - Below College</option>
+                <option>2 - College</option>
+                <option>3 - Bachelor</option>
+                <option>4 - Master</option>
+                <option>5 - Doctor</option>
+              </select>
             </Form.Group>
           </Form.Row>
 
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>education_field</Form.Label>
-              <Form.Control
+              <Form.Label>Education_field</Form.Label>
+              {/* <Form.Control
                 type="text"
                 name="EducationField"
                 placeholder="education_field"
                 value={formData.EducationField}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="EducationField"
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>0 - Life_Sciences </option>
+                <option>1 - Medical</option>
+                <option>2 - Marketing</option>
+                <option>3 - Technical_Degree</option>
+                <option>4 - Human Resources</option>
+                <option>5 - Others</option>
+              </select>
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>environment_satisfaction</Form.Label>
-              <Form.Control
+              <Form.Label>Environment_satisfaction</Form.Label>
+              {/* <Form.Control
                 type="text"
                 placeholder="environment_satisfaction"
                 name="EnvironmentSatisfaction"
                 value={formData.EnvironmentSatisfaction}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="EnvironmentSatisfaction"
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>1 - Low</option>
+                <option>2 - Medium</option>
+                <option>3 - High</option>
+                <option>4 - Very High</option>
+              </select>
             </Form.Group>
           </Form.Row>
 
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>gender</Form.Label>
-              <Form.Control
+              <Form.Label>Gender</Form.Label>
+              {/* <Form.Control
                 type="text"
                 placeholder="gender"
                 name="Gender"
                 value={formData.Gender}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="Gender"
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>0 - Male </option>
+                <option>1 - Female</option>
+              </select>
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>job_involvement</Form.Label>
-              <Form.Control
+              <Form.Label>Job_involvement</Form.Label>
+              {/* <Form.Control
                 type="text"
                 placeholder="job_involvement"
                 name="JobInvolvement"
                 value={formData.JobInvolvement}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="JobInvolvement"
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>1 - Low</option>
+                <option>2 - Medium</option>
+                <option>3 - High</option>
+                <option>4 - Very High</option>
+              </select>
             </Form.Group>
           </Form.Row>
 
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>job_level</Form.Label>
-              <Form.Control
+              <Form.Label>Job_level</Form.Label>
+              {/* <Form.Control
                 type="text"
-                placeholder="job_level"
+                placeholder="1 - 5"
                 name="JobLevel"
                 value={formData.JobLevel}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="JobLevel"
+               onChange={this.handleOptions}>
+                <option>Choose an option(Low to High JobLevel)</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>job_role</Form.Label>
-              <Form.Control
+              <Form.Label>Job_role</Form.Label>
+              {/* <Form.Control
                 type="text"
                 placeholder="job_role"
                 name="JobRole"
                 value={formData.JobRole}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="JobRole"
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>0 - Sales Executive </option>
+                <option>1 - Research Scientist</option>
+                <option>2 - Laboratory Technician</option>
+                <option>3 - Manufacturing Director</option>
+                <option>4 - Healthcare Representative</option>
+                <option>5 - Manager</option>
+                <option>6 - Sales Representative</option>
+                <option>7 - Research Director</option>
+                <option>8 - Human Resources</option>
+              </select>
             </Form.Group>
           </Form.Row>
 
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>job_satisfaction</Form.Label>
-              <Form.Control
+              <Form.Label>Job_satisfaction</Form.Label>
+              {/* <Form.Control
                 type="text"
                 placeholder="job_satisfaction"
                 name="JobSatisfaction"
                 value={formData.JobSatisfaction}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="JobSatisfaction"
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>1 - Low</option>
+                <option>2 - Medium</option>
+                <option>3 - High</option>
+                <option>4 - Very High</option>
+              </select>
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>marital_status</Form.Label>
-              <Form.Control
+              <Form.Label>Marital_status</Form.Label>
+              {/* <Form.Control
                 type="text"
                 placeholder="Enter marital status"
                 name="MaritalStatus"
                 value={formData.MaritalStatus}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="MaritalStatus"
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>0 - Single</option>
+                <option>1 - Married</option>
+                <option>2 - Divorced</option>
+              </select>
             </Form.Group>
           </Form.Row>
 
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>num_comp_worked</Form.Label>
+              <Form.Label>No_of_companies_worked</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="companies_worked"
+                placeholder="Total companies_worked"
                 name="NumCompaniesWorked"
                 value={formData.NumCompaniesWorked}
                 onChange={this.handleChange}
               />
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>overtime</Form.Label>
-              <Form.Control
+              <Form.Label>Overtime</Form.Label>
+              {/* <Form.Control
                 type="text"
                 placeholder="overtime"
                 name="OverTime"
                 value={formData.OverTime}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="OverTime"
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>0 - No</option>
+                <option>1 - Yes</option>
+              </select>
             </Form.Group>
           </Form.Row>
 
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>percent_salary_hike</Form.Label>
+              <Form.Label>Percent_salary_hike</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="salary_hike"
+                placeholder="Enter Emp salary_hike"
                 name="PercentSalaryHike"
                 value={formData.PercentSalaryHike}
                 onChange={this.handleChange}
               />
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>performance_rating</Form.Label>
-              <Form.Control
+              <Form.Label>Performance_rating</Form.Label>
+              {/* <Form.Control
                 type="text"
                 placeholder="performance_rating"
                 name="PerformanceRating"
                 value={formData.PerformanceRating}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="PerformanceRating"
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>1 - Low</option>
+                <option>2 - Good</option>
+                <option>3 - Excellent</option>
+                <option>4 - Outstanding</option>
+              </select>
             </Form.Group>
           </Form.Row>
 
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>relationship_satisfaction</Form.Label>
-              <Form.Control
+              <Form.Label>Relationship_satisfaction</Form.Label>
+              {/* <Form.Control
                 type="text"
                 placeholder="relationship_satisfaction"
                 name="RelationshipSatisfaction"
                 value={formData.RelationshipSatisfaction}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="RelationshipSatisfaction"
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>1 - Low</option>
+                <option>2 - Medium</option>
+                <option>3 - High</option>
+                <option>4 - Very High</option>
+              </select>
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>stock_option_level</Form.Label>
-              <Form.Control
+              <Form.Label>Stock_option_level</Form.Label>
+              {/* <Form.Control
                 type="text"
                 placeholder="stock_option_level"
                 name="StockOptionLevel"
                 value={formData.StockOptionLevel}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="StockOptionLevel"
+               onChange={this.handleOptions}>
+                <option>Choose an option(Low to High)</option>
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+              </select>
             </Form.Group>
           </Form.Row>
 
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>total_working_years</Form.Label>
+              <Form.Label>Total_working_years</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="total_working_years"
+                placeholder="Total_working_years"
                 name="TotalWorkingYears"
                 value={formData.TotalWorkingYears}
                 onChange={this.handleChange}
               />
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>training_times_last_y</Form.Label>
+              <Form.Label>Training_times_last_year</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="training_times_last_year"
+                placeholder="Total training_months_spent_last_year"
                 name="TrainingTimesLastYear"
                 value={formData.TrainingTimesLastYear}
                 onChange={this.handleChange}
@@ -443,20 +632,31 @@ class SingleFile extends Component {
           </Form.Row>
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>work_life_balance</Form.Label>
-              <Form.Control
+              <Form.Label>Work_life_balance</Form.Label>
+              {/* <Form.Control
                 type="text"
                 placeholder="work_life_balance"
                 name="WorkLifeBalance"
                 value={formData.WorkLifeBalance}
                 onChange={this.handleChange}
-              />
+              /> */}
+              <br></br>
+              <select
+               className="options"
+               name="WorkLifeBalance"
+               onChange={this.handleOptions}>
+                <option>Choose an option</option>
+                <option>1 - Bad</option>
+                <option>2 - Good</option>
+                <option>3 - Better</option>
+                <option>4 - Best</option>
+              </select>
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>years_at_company</Form.Label>
+              <Form.Label>Years_at_company</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="years_at_company"
+                placeholder="Years_at_company"
                 name="YearsAtCompany"
                 value={formData.YearsAtCompany}
                 onChange={this.handleChange}
@@ -466,20 +666,20 @@ class SingleFile extends Component {
 
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>years_in_current_role</Form.Label>
+              <Form.Label>Years_in_current_role</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="years_in_current_role"
+                placeholder="Years_in_current_role"
                 name="YearsInCurrentRole"
                 value={formData.YearsInCurrentRole}
                 onChange={this.handleChange}
               />
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label>years_since_last_promotion</Form.Label>
+              <Form.Label>Years_since_last_promotion</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="years_since_last_promotion"
+                placeholder="Years_since_last_promotion"
                 name="YearsSinceLastPromotion"
                 value={formData.YearsSinceLastPromotion}
                 onChange={this.handleChange}
@@ -488,10 +688,10 @@ class SingleFile extends Component {
           </Form.Row>
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>years_with_curr_manager</Form.Label>
+              <Form.Label>Years_with_current_manager</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="years_with_curr_manager"
+                placeholder="Years_with_current_manager"
                 name="YearsWithCurrManager"
                 value={formData.YearsWithCurrManager}
                 onChange={this.handleChange}
