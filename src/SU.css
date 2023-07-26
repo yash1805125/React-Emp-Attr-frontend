@@ -1,19 +1,21 @@
+/* import data */
 .content {
   margin: auto;
   margin-top: 20px;
   width: 70%;
   height: auto;
-  background-color: #fff;
+  background-color: #0b1655;
   padding: 20px;
   border-radius: 8px;
 }
 
 label {
-  color: #333;
+  color: rgb(118, 5, 170);
 }
 
 .p1 {
-  text-align: center;
+  display:flex;
+  justify-content: center;
 }
 
 .t1 {
@@ -21,7 +23,6 @@ label {
   font-weight: 200;
   font-size: 2em;
   letter-spacing: 0.15rem;
-  color: black;
 }
 .result-container {
   text-align: center;
@@ -36,4 +37,11 @@ label {
 
 #result2 {
   color: red;
+}
+
+.options{
+  width: 100%;
+  height: 50%;
+  opacity: 0.7;
+  border-radius: 3px;
 }
