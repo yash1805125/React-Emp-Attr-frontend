@@ -13,6 +13,27 @@ class App extends Component {
     this.state = JSON.parse(window.localStorage.getItem("state")) || {
       flag: 0,
     };
+
+    // Binding the event handler to the class instance
+    this.handlePopstate = this.handlePopstate.bind(this);
+  }
+
+  // Adding the event listener when the component mounts
+  componentDidMount() {
+    window.addEventListener("popstate", this.handlePopstate);
+  }
+
+  // To Remove the event listener when the component unmounts
+  componentWillUnmount() {
+    window.removeEventListener("popstate", this.handlePopstate);
+  }
+
+  // Defining the event handler to be executed when the popstate event occurs
+  handlePopstate(event) {
+    // console.log(event);
+    if (this.state.flag === 1 || this.state.flag === 2)
+      this.setState({ flag: 0 });
+    else this.setState({ flag: 1 });
   }
 
   setState(state) {
@@ -49,7 +70,7 @@ class App extends Component {
                 {/* <Link className="single" to="/1st" onClick={this.changeRoute1}>
                   SingleUser
                 </Link> */}
-                
+
                 <button className="multiple">
                   <Link to="/2nd" onClick={this.changeRoute2}>
                     <b>Multiple User</b>
