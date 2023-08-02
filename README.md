@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This Web Application can be seen running on https://yash1805125.github.io/React-Emp-Attr-frontend
+This Web Application can be seen running on https://ml-attrition-detection.netlify.app
 
 ## Available Scripts
 
