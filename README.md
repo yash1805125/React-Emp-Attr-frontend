@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This Web Application can be seen running on https://ml-attrition-detection.netlify.app
+This Web Application can be seen running on [https://ml-attrition-detection.netlify.app](https://ml-attrition-detection-app.netlify.app/)
 
 ## Available Scripts
 
