@@ -6,6 +6,10 @@ This Web Application can be seen running on [https://ml-attrition-detection.netl
 
 In the project directory, you can run:
 
+### `npm install` to install required dependencies.
+
+then run,
+
 ### `npm start`
 
 Runs the app in the development mode.<br>
