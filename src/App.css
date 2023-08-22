@@ -1,52 +1,64 @@
-html,
-body {
-  background-image: url("https://c4.wallpaperflare.com/wallpaper/670/883/685/plexus-atoms-neutrons-electrons-wallpaper-preview.jpg");
-
-  background-size: cover;
-  color: white;
-  height: 100%;
-  width: 100%;
-}
-
-.title {
-  padding-top: 100px;
+.App {
   text-align: center;
-  font-weight: 600;
-  font-size: 4em;
-  letter-spacing: 0.15rem;
-  color: cyan;
-  font-family: sans-serif;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(
+    79deg,
+    rgb(141, 96, 209),
+    rgb(177, 211, 177),
+    rgb(226, 193, 153)
+  );
+  background-attachment: fixed; /* Make background img fixed */
+  background-repeat: no-repeat; /* Don't repeat the img */
+  background-size: cover; /* Cover the entire screen */
+  background-position: center;
+  /* background: linear-gradient(to right, rgb(177, 211, 177), rgb(226, 193, 153)); */
 }
 
-.b {
+.auth-form-container,
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 600px) {
+  .auth-form-container {
+    padding: 5rem;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 0.5rem;
+  }
+}
+
+label {
+  text-align: left;
+  padding: 0.25rem 0;
+}
+
+input {
+  border: none;
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+button {
+  border: none;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.l1 {
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.link {
+  background: none;
   color: white;
-  top: 50px;
-  position: relative;
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: 300;
-  font-size: 2em;
-  letter-spacing: 0.15rem;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-}
-
-.single {
-  position: relative;
-  left: 300px;
-  top: 150px;
-  font-size: 500;
-  padding: 15px;
-}
-
-.multiple {
-  position: relative;
-  left: 600px;
-  top: 150px;
-  padding: 15px;
-}
-
-.home {
-  position: relative;
-  left: 130px;
-  font-size: 500;
+  text-decoration: underline;
 }

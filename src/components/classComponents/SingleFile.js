@@ -15,65 +15,37 @@ class SingleFile extends Component {
       isLoading: false,
       name: "",
       formData: {
-        Age:"", 
-        BusinessTravel:"",
-        MonthlyIncome:"", 
-        MonthlyRate:"", 
-        Department:"",
-        DistanceFromHome:"",
-        Education:"", 
-        EducationField:"", 
-        EnvironmentSatisfaction:"", 
-        Gender:"", 
-        HourlyRate:"", 
-        DailyRate:"", 
-        JobInvolvement:"",
-        JobLevel:"",	
-        JobRole:"", 
-        JobSatisfaction:"", 
-        MaritalStatus:"", 
-        NumCompaniesWorked:"",
-        OverTime:"", 
-        StandardHours:"", 
-        PercentSalaryHike:"", 
-        PerformanceRating:"", 
-        RelationshipSatisfaction:"", 
-        StockOptionLevel:"",	
-        TotalWorkingYears:"", 
-        TrainingTimesLastYear:"", 
-        WorkLifeBalance:"", 
-        YearsAtCompany:"", 
-        YearsInCurrentRole:"", 
-        YearsSinceLastPromotion:"", 
-        YearsWithCurrManager:"",
-
-        // age: 0,
-        // business_travel: 0,
-        // monthly_income: 0,
-        // department: 0,
-        // distance_home: 0,
-        // education: 0,
-        // education_field: 0,
-        // environment_satisfaction: 0,
-        // gender: 0,
-        // job_involvement: 0,
-        // job_level: 0,
-        // job_role: 0,
-        // job_satisfaction: 0,
-        // marital_status: 0,
-        // num_comp_worked: 0,
-        // overtime: 0,
-        // percent_salary_hike: 0,
-        // performance_rating: 0,
-        // relationship_satisfaction: 0,
-        // stock_option_level: 0,
-        // total_working_years: 0,
-        // training_times_last_y: 0,
-        // work_life_balance: 0,
-        // years_at_company: 0,
-        // years_in_current_role: 0,
-        // years_since_last_promotion: 0,
-        // years_with_curr_manager: 0,
+        Age: "",
+        BusinessTravel: "",
+        MonthlyIncome: "",
+        MonthlyRate: "",
+        Department: "",
+        DistanceFromHome: "",
+        Education: "",
+        EducationField: "",
+        EnvironmentSatisfaction: "",
+        Gender: "",
+        HourlyRate: "",
+        DailyRate: "",
+        JobInvolvement: "",
+        JobLevel: "",
+        JobRole: "",
+        JobSatisfaction: "",
+        MaritalStatus: "",
+        NumCompaniesWorked: "",
+        OverTime: "",
+        StandardHours: "",
+        PercentSalaryHike: "",
+        PerformanceRating: "",
+        RelationshipSatisfaction: "",
+        StockOptionLevel: "",
+        TotalWorkingYears: "",
+        TrainingTimesLastYear: "",
+        WorkLifeBalance: "",
+        YearsAtCompany: "",
+        YearsInCurrentRole: "",
+        YearsSinceLastPromotion: "",
+        YearsWithCurrManager: "",
       },
       result: "",
     };
@@ -96,18 +68,18 @@ class SingleFile extends Component {
       name: value,
     });
   };
-                          
+
   handlePredictClick = (event) => {
     const formData = this.state.formData;
     // console.log(formData)
-    let flag=0;
-    Object.values(formData).forEach(val => {
-        if(val.length===0) flag=1;
+    let flag = 0;
+    Object.values(formData).forEach((val) => {
+      if (val.length === 0) flag = 1;
     });
-    if(flag===1) return alert('Please provide all data');
+    if (flag === 1) return alert("Please provide all data");
 
     this.setState({ isLoading: true });
-    fetch("http://mindhunter.pythonanywhere.com/predict", {
+    fetch("https://mindhunter.pythonanywhere.com/predict", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -117,19 +89,21 @@ class SingleFile extends Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response)
+        console.log(response);
         this.setState({
           result: response.result,
           isLoading: false,
         });
-      }).catch(err => console.log(err));
+      })
+      .catch((err) => console.log(err));
   };
 
-  handleOptions = (e) =>{
+  handleOptions = (e) => {
     const value = Number(e.target.value[0]);
-    if(isNaN(value)){ 
+    if (isNaN(value)) {
       console.log(e.target.value[0]);
-      return;}
+      return;
+    }
     const name = e.target.name;
     var formData = this.state.formData;
     formData[name] = value;
@@ -137,7 +111,7 @@ class SingleFile extends Component {
     this.setState({
       formData,
     });
-  }
+  };
 
   handleCancelClick = (event) => {
     this.setState({ result: "" });
@@ -184,10 +158,11 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="BusinessTravel"
-              //  value={formData.BusinessTravel}
-               onChange={this.handleOptions}>
+                className="options"
+                name="BusinessTravel"
+                //  value={formData.BusinessTravel}
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>0 - Travel_Rarely </option>
                 <option>1 - Travel_Frequently</option>
@@ -218,10 +193,11 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="Department"
-              //  value={formData.Department}
-               onChange={this.handleOptions}>
+                className="options"
+                name="Department"
+                //  value={formData.Department}
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>0 - Sales</option>
                 <option>1 - Research & Development</option>
@@ -253,7 +229,6 @@ class SingleFile extends Component {
             </Form.Group>
           </Form.Row>
 
-          
           <Form.Row>
             <Form.Group as={Col}>
               <Form.Label>HourlyRate</Form.Label>
@@ -299,9 +274,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="Education"
-               onChange={this.handleOptions}>
+                className="options"
+                name="Education"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>1 - Below College</option>
                 <option>2 - College</option>
@@ -324,9 +300,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="EducationField"
-               onChange={this.handleOptions}>
+                className="options"
+                name="EducationField"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>0 - Life_Sciences </option>
                 <option>1 - Medical</option>
@@ -347,9 +324,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="EnvironmentSatisfaction"
-               onChange={this.handleOptions}>
+                className="options"
+                name="EnvironmentSatisfaction"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>1 - Low</option>
                 <option>2 - Medium</option>
@@ -371,9 +349,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="Gender"
-               onChange={this.handleOptions}>
+                className="options"
+                name="Gender"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>0 - Male </option>
                 <option>1 - Female</option>
@@ -390,9 +369,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="JobInvolvement"
-               onChange={this.handleOptions}>
+                className="options"
+                name="JobInvolvement"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>1 - Low</option>
                 <option>2 - Medium</option>
@@ -414,9 +394,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="JobLevel"
-               onChange={this.handleOptions}>
+                className="options"
+                name="JobLevel"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option(Low to High JobLevel)</option>
                 <option>1</option>
                 <option>2</option>
@@ -436,9 +417,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="JobRole"
-               onChange={this.handleOptions}>
+                className="options"
+                name="JobRole"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>0 - Sales Executive </option>
                 <option>1 - Research Scientist</option>
@@ -465,9 +447,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="JobSatisfaction"
-               onChange={this.handleOptions}>
+                className="options"
+                name="JobSatisfaction"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>1 - Low</option>
                 <option>2 - Medium</option>
@@ -486,9 +469,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="MaritalStatus"
-               onChange={this.handleOptions}>
+                className="options"
+                name="MaritalStatus"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>0 - Single</option>
                 <option>1 - Married</option>
@@ -519,9 +503,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="OverTime"
-               onChange={this.handleOptions}>
+                className="options"
+                name="OverTime"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>0 - No</option>
                 <option>1 - Yes</option>
@@ -551,9 +536,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="PerformanceRating"
-               onChange={this.handleOptions}>
+                className="options"
+                name="PerformanceRating"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>1 - Low</option>
                 <option>2 - Good</option>
@@ -575,9 +561,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="RelationshipSatisfaction"
-               onChange={this.handleOptions}>
+                className="options"
+                name="RelationshipSatisfaction"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>1 - Low</option>
                 <option>2 - Medium</option>
@@ -596,9 +583,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="StockOptionLevel"
-               onChange={this.handleOptions}>
+                className="options"
+                name="StockOptionLevel"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option(Low to High)</option>
                 <option>0</option>
                 <option>1</option>
@@ -642,9 +630,10 @@ class SingleFile extends Component {
               /> */}
               <br></br>
               <select
-               className="options"
-               name="WorkLifeBalance"
-               onChange={this.handleOptions}>
+                className="options"
+                name="WorkLifeBalance"
+                onChange={this.handleOptions}
+              >
                 <option>Choose an option</option>
                 <option>1 - Bad</option>
                 <option>2 - Good</option>

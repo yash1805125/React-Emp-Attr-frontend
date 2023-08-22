@@ -1,117 +1,36 @@
-import React, { Component } from "react";
 import "./App.css";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import SingleFile from "./SingleFile";
-import MultipleFile from "./MultipleFile";
+import { useState } from "react";
+import Login from "./components/authComponents/Login";
+import Register from "./components/authComponents/Register";
+import Home from "./components/classComponents/Home";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+function App() {
+  const [currentForm, setCurrentForm] = useState("login");
+  const [home, setHome] = useState(false);
 
-    this.state = JSON.parse(window.localStorage.getItem("state")) || {
-      flag: 0,
-    };
-
-    // Binding the event handler to the class instance
-    this.handlePopstate = this.handlePopstate.bind(this);
-  }
-
-  // Adding the event listener when the component mounts
-  componentDidMount() {
-    window.addEventListener("popstate", this.handlePopstate);
-  }
-
-  // To Remove the event listener when the component unmounts
-  componentWillUnmount() {
-    window.removeEventListener("popstate", this.handlePopstate);
-  }
-
-  // Defining the event handler to be executed when the popstate event occurs
-  handlePopstate(event) {
-    // console.log(event);
-    if (this.state.flag === 1 || this.state.flag === 2)
-      this.setState({ flag: 0 });
-    else this.setState({ flag: 1 });
-  }
-
-  setState(state) {
-    window.localStorage.setItem("state", JSON.stringify(state));
-    super.setState(state);
-  }
-
-  changeRoute1 = () => {
-    this.setState({ flag: 1 });
+  const toggleForm = (formName) => {
+    setCurrentForm(formName);
   };
 
-  changeRoute2 = () => {
-    this.setState({ flag: 2 });
+  const handleLogin = () => {
+    setHome(true);
   };
 
-  render() {
-    const flag = this.state.flag;
-    console.log(flag);
-    return (
-      <Router>
-        <Container>
-          <Form>
-            <div>
-              <h1 className="title">Employee Attrition Detection</h1>
-            </div>
-            {flag === 0 ? (
-              <div>
-                <h1 className="b">Choose the type of Prediction Method</h1>
-                <button className="single">
-                  <Link to="/1st" onClick={this.changeRoute1}>
-                    <b>Single User</b>
-                  </Link>
-                </button>
-                {/* <Link className="single" to="/1st" onClick={this.changeRoute1}>
-                  SingleUser
-                </Link> */}
-
-                <button className="multiple">
-                  <Link to="/2nd" onClick={this.changeRoute2}>
-                    <b>Multiple User</b>
-                  </Link>
-                </button>
-                {/* <Link to="/2nd" onClick={this.changeRoute2}>
-                  MultipleUser
-                </Link> */}
-              </div>
-            ) : (
-              <div>
-                <button className="home">
-                  <Link
-                    to="/"
-                    onClick={() => {
-                      this.setState({ flag: 0 });
-                    }}
-                  >
-                    <b>HOME</b>
-                  </Link>
-                </button>
-              </div>
-            )}
-
-            <div>
-              <Routes>
-                {/* <Route
-                path="/"
-                element={<App />}
-                
-              /> */}
-                <Route path="/1st" element={<SingleFile />} />
-
-                <Route path="/2nd" element={<MultipleFile />} />
-              </Routes>
-            </div>
-          </Form>
-        </Container>
-      </Router>
-    );
-  }
+  return (
+    <div className="App">
+      {home === true ? (
+        <Home />
+      ) : (
+        <div>
+          {currentForm === "login" ? (
+            <Login onFormSwitch={toggleForm} valid={handleLogin} />
+          ) : (
+            <Register onFormSwitch={toggleForm} valid={handleLogin} />
+          )}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default App;

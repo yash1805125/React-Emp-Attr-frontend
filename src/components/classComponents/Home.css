@@ -1,0 +1,60 @@
+.Home {
+  background-image: url("https://c4.wallpaperflare.com/wallpaper/670/883/685/plexus-atoms-neutrons-electrons-wallpaper-preview.jpg");
+
+  /* background-size: cover; */
+  background-attachment: fixed;
+  width: 100%;
+  margin: 30px 0px;
+  padding: 90px 0px;
+}
+
+.title {
+  padding-top: 5px;
+  padding-bottom: 90px;
+  /* padding: 100px 20px; */
+  text-align: center;
+  font-weight: 600;
+  font-size: 4em;
+  letter-spacing: 0.15rem;
+  color: cyan;
+  font-family: sans-serif;
+}
+
+.b {
+  color: white;
+  padding: 30px 0px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 2em;
+  letter-spacing: 0.15rem;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+.single {
+  padding: 20px;
+  border-radius: 7px;
+}
+
+.multiple {
+  padding: 20px;
+  border-radius: 7px;
+}
+
+.home-fix {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 175px;
+  padding-bottom: 5px;
+}
+
+.home {
+  padding: 8px 10px;
+  border-radius: 7px;
+}
+
+.small-div-fix {
+  padding: 30px;
+  display: flex;
+  justify-content: space-around;
+}
