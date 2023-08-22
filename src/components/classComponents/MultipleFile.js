@@ -15,43 +15,43 @@ class MultipleFile extends Component {
       rows: "",
       cols: "",
       formData: {
-        Age:"", 
-        BusinessTravel:"",
-        MonthlyIncome:"", 
-        MonthlyRate:"", 
-        Department:"",
-        DistanceFromHome:"",
-        Education:"", 
-        EducationField:"", 
-        EnvironmentSatisfaction:"", 
-        Gender:"", 
-        HourlyRate:"", 
-        DailyRate:"", 
-        JobInvolvement:"",
-        JobLevel:"",	
-        JobRole:"", 
-        JobSatisfaction:"", 
-        MaritalStatus:"", 
-        NumCompaniesWorked:"",
-        OverTime:"", 
-        StandardHours:"", 
-        PercentSalaryHike:"", 
-        PerformanceRating:"", 
-        RelationshipSatisfaction:"", 
-        StockOptionLevel:"",	
-        TotalWorkingYears:"", 
-        TrainingTimesLastYear:"", 
-        WorkLifeBalance:"", 
-        YearsAtCompany:"", 
-        YearsInCurrentRole:"", 
-        YearsSinceLastPromotion:"", 
-        YearsWithCurrManager:"",
+        Age: "",
+        BusinessTravel: "",
+        MonthlyIncome: "",
+        MonthlyRate: "",
+        Department: "",
+        DistanceFromHome: "",
+        Education: "",
+        EducationField: "",
+        EnvironmentSatisfaction: "",
+        Gender: "",
+        HourlyRate: "",
+        DailyRate: "",
+        JobInvolvement: "",
+        JobLevel: "",
+        JobRole: "",
+        JobSatisfaction: "",
+        MaritalStatus: "",
+        NumCompaniesWorked: "",
+        OverTime: "",
+        StandardHours: "",
+        PercentSalaryHike: "",
+        PerformanceRating: "",
+        RelationshipSatisfaction: "",
+        StockOptionLevel: "",
+        TotalWorkingYears: "",
+        TrainingTimesLastYear: "",
+        WorkLifeBalance: "",
+        YearsAtCompany: "",
+        YearsInCurrentRole: "",
+        YearsSinceLastPromotion: "",
+        YearsWithCurrManager: "",
       },
       res: "",
       excelData: [],
       theInputKey: "",
       // load: false,
-      isLoading:false,
+      isLoading: false,
     };
   }
   // load = () => {
@@ -62,15 +62,15 @@ class MultipleFile extends Component {
   handleExcel = (event) => {
     event.preventDefault();
     if (this.state.isLoading) {
-      return alert('Prediction in queue'); // Prevent execution if the button is already disabled (loading)
+      return alert("Prediction in queue"); // Prevent execution if the button is already disabled (loading)
     }
     const data = this.state.rows;
     // console.log(data);
-    
+
     const formData = this.state.formData;
-    
-    if(data === "") return alert("Please Upload File")
-    
+
+    if (data === "") return alert("Please Upload File");
+
     // for (let i = 1; i < data.length; i++) {
     //   // var j = 1;
     //   for (let j=1;j<data[i].length;j++) {
@@ -81,32 +81,32 @@ class MultipleFile extends Component {
     //     }
     //   }
 
-    this.setState({ res: "",isLoading:true });
+    this.setState({ res: "", isLoading: true });
 
-    for(let i=1;i<data.length;i++){
-      
-      for(let j=0;j<data[i].length;j++){
-        const k = data[0][j]
-          if(k !== 'EmployeeNumber'){
-            formData[k] = data[i][data[0].indexOf(k)];
-          }
+    for (let i = 1; i < data.length; i++) {
+      for (let j = 0; j < data[i].length; j++) {
+        const k = data[0][j];
+        if (k !== "EmployeeNumber") {
+          formData[k] = data[i][data[0].indexOf(k)];
+        }
       }
-      console.log(formData)
-        fetch("http://mindhunter.pythonanywhere.com/predict", {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          method: "POST",
-          body: JSON.stringify(formData),
+      console.log(formData);
+      fetch("https://mindhunter.pythonanywhere.com/predict", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(formData),
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          console.log(response.result);
+          this.setState((previousState) => ({
+            res: [...previousState.res, response.result],
+          }));
         })
-          .then((response) => response.json())
-          .then((response) => {
-            console.log(response.result);
-            this.setState((previousState) => ({
-              res: [...previousState.res, response.result],
-            }));
-          }).catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
     // if(this.state.res.length !== 0){
     // this.setState({load:true,isLoading:false})
@@ -119,7 +119,7 @@ class MultipleFile extends Component {
   // }
 
   fileHandler = (event) => {
-    this.setState({rows:"",cols:"",res:""})
+    this.setState({ rows: "", cols: "", res: "" });
     let fileObj = event.target.files[0];
     console.log(event.target.files);
 
@@ -144,19 +144,20 @@ class MultipleFile extends Component {
     this.setState({ excelData: [] });
     const res = this.state.res;
 
-    if(res === "") return alert('Please predict attrtition first')
-    
-    const index = this.state.rows[0].indexOf('EmployeeNumber')
+    if (res === "") return alert("Please predict attrtition first");
+
+    const index = this.state.rows[0].indexOf("EmployeeNumber");
     for (let i = 0; i < res.length; i++) {
-      this.state.excelData.push({ id: this.state.rows[i+1][index], ans: res[i] });
-      
+      this.state.excelData.push({
+        id: this.state.rows[i + 1][index],
+        ans: res[i],
+      });
     }
     if (this.state.excelData.length !== 0) {
       console.log(
         typeof this.state.excelData[0].ans,
         this.state.excelData[0].ans
       );
-      
 
       // Export to Excel
       const fileType =
@@ -223,29 +224,36 @@ class MultipleFile extends Component {
             </header>
           </div>
 
-
           <div>
-
-            {( (this.state.rows.length-1)===this.state.res.length) === true ? (
+            {(this.state.rows.length - 1 === this.state.res.length) === true ? (
               <h4>Prediction Complete</h4>
-            ) : (((this.state.res.length<this.state.rows.length-1) && (this.state.res.length!==0)) ? (<h4>Predicting please wait...</h4>) :
-              (<h4>Press Predict Button</h4>)
+            ) : this.state.res.length < this.state.rows.length - 1 &&
+              this.state.res.length !== 0 ? (
+              <h4>Predicting please wait...</h4>
+            ) : (
+              <h4>Press Predict Button</h4>
             )}
-            <Button block variant="success" onClick={this.handleExcel} disabled={this.state.isLoading}>
+            <Button
+              block
+              variant="success"
+              onClick={this.handleExcel}
+              disabled={this.state.isLoading}
+            >
               Predict
             </Button>
-              
+
             <div className="prac">
-            <Button onClick={this.toExcel}>Download Excel</Button>
+              <Button className="dw-fix" onClick={this.toExcel}>
+                Download Excel
+              </Button>
               <button
                 className="mul"
                 // variant="success"
                 onClick={this.functionThatResetsTheFileInput}
               >
                 <b>Reset</b>
-              </button>  
-              
-            </div> 
+              </button>
+            </div>
           </div>
         </div>
         {/* </Form> */}

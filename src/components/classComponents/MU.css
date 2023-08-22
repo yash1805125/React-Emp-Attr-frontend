@@ -1,4 +1,4 @@
-.prac{
+.prac {
   margin-top: 10px;
   display: flex;
   flex-direction: row;
@@ -6,8 +6,13 @@
   justify-content: space-between;
 }
 
+.dw-fix {
+  padding: 10px;
+}
+
 .mul {
   color: white;
+  padding: 10px;
   background-color: red;
   /* margin-bottom: 0%; */
   text-align: center;
@@ -25,7 +30,7 @@
   border-radius: 8px;
 }
 
-.files{
+.files {
   display: flex;
   justify-content: space-between;
 }
